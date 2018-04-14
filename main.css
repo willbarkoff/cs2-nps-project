@@ -1,0 +1,70 @@
+body {
+    margin: 0;
+    padding: 0;
+  }
+
+  #map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    transition: width 1s, left 1s;
+  }
+
+  #floatingRectangle {
+    z-index: 1;
+    position: absolute;
+    left: 2vw;
+    top: 2vh;
+
+    /* height: 0vh; */
+    width: 25vw;
+
+    background-color: #fff;
+
+    padding: 20px, 20px, 20px, 20px;
+
+    box-shadow: 7px 7px 5px rgba(0, 0, 0, 0.2);
+
+    border-radius: 3px;
+
+    -webkit-transition: width 1s, height 1s, left 1s, top 1s, box-shadow 0s; /* Safari */
+    transition: width 1s, height 1s, left 1s, top 1s, box-shadow 0s;
+
+    overflow: auto;
+}
+
+.zoomMenu {
+    z-index: 100;
+    position: absolute;
+    right: 2vw;
+    bottom: 2vh;
+
+    /* height: 0vh; */
+    width: 5vw;
+
+    background-color: #fff;
+
+    padding: 20px, 20px, 20px, 20px;
+
+    box-shadow: 7px 7px 5px rgba(0, 0, 0, 0.2);
+
+    border-radius: 3px;
+
+    overflow: auto;
+
+    cursor: pointer;
+}
+
+#floatingRectangleGettingStarted {
+    text-align: center;
+    padding: 10px, 10px, 10px, 10px;
+}
+
+#explore-button {
+    margin-bottom: 20px;
+}
+
+.hidden {
+    display: none;
+}

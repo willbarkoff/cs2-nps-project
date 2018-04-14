@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>NPS Info</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css' rel='stylesheet' />
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.0/sketchy/bootstrap.min.css" rel="stylesheet" integrity="sha384-rfPl7UHwaHyXh/n5kFubgXzPE1QcgUOk9qyasE7bw4YTXgJ7A5Y/ljxbuNFETD7L"
+        crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+
+</head>
+
+<body>
+    <div class="zoomMenu">
+        <div id='menu'>
+            <input id='mapbox://styles/nywillb/cjfuhgd1f0jv72roiqf2766h1' type='radio' name='rtoggle' value='mapbox://styles/nywillb/cjfuhgd1f0jv72roiqf2766h1'
+                checked='checked' class="custom-control-input map-type-select">
+            <label for='mapbox://styles/nywillb/cjfuhgd1f0jv72roiqf2766h1'>Default</label>
+            <br>
+            <input id='mapbox://styles/mapbox/satellite-v9' type='radio' name='rtoggle' value='mapbox://styles/mapbox/satellite-v9' class="custom-control-input map-type-select">
+            <label for='mapbox://styles/mapbox/satellite-v9'>Satellite</label>
+        </div>
+    </div>
+    <div id="floatingRectangle">
+        <div id="floatingRectangleGettingStarted">
+            <h1>Explore your national parks!</h1>
+            <button type="button" class="btn btn-primary" id="explore-button">Explore</button>
+            <h3 id="facts-header" class="hidden">Fun Facts</h3>
+            <p id="facts1" class="hidden"></p>
+            <p id="facts2" class="hidden"></p>
+        </div>
+        <div id="parksList" class="hidden">
+            <h1>United States National Parks</h1>
+            <h6>
+                <u>Tip!</u> Press Ctrl (^) or Cmd (⌘) F to search.</h6>
+            <ul id="parks">
+            </ul>
+        </div>
+    </div>
+    <div id='map'></div>
+    <div class="modal fade" id="parkModal" tabindex="-1" role="dialog" aria-labelledby="parkModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="parkModalLabel">Park Name</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- <p id="loading-weather" class="modal-loading">
+                        <i class="fas fa-circle-notch fa-spin"></i> Loading park weather...</span>
+                    </p>
+                    <p id="weather" class="modal-info"></p> -->
+                    <p>Latitude:
+                        <span id="latitude"></span>
+                    </p>
+                    <p>Longitude:
+                        <span id="longitude"></span>
+                    </p>
+                    <hr>
+                    <p class="lead">From Wikipedia, the free encyopedia.</p>
+                    <span id="loading-wikipedia" class="modal-loading">
+                        <i class="fas fa-circle-notch fa-spin"></i> Loading park information...</span>
+                    <div id="wikipedia-content" class="modal-info"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1Ijoibnl3aWxsYiIsImEiOiJjajRkNDhkdnMwZ3J6MnhzNDZwYjQzb3IwIn0.nOLY6z5glYjS0D6SqJBLJw';
+        var map = new mapboxgl.Map({
+            center: [-104, 38],
+            zoom: 4,
+            container: 'map',
+            style: 'mapbox://styles/nywillb/cjfuhgd1f0jv72roiqf2766h1'
+        });
+
+        var layerList = document.getElementById('menu');
+        var inputs = layerList.getElementsByTagName('input');
+
+        map.addControl(new mapboxgl.NavigationControl());
+
+        function switchLayer(layer) {
+            var layerId = layer.target.id;
+            map.setStyle(layerId);
+        }
+
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].onclick = switchLayer;
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
+    <script src="instaview.js"></script>
+    <script src="parks.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
